@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 
 	"github.com/andrewlader/go-garminizer/garminizer"
 	"github.com/spf13/viper"
@@ -43,9 +42,5 @@ func main() {
 	fmt.Println("==========")
 	fmt.Println()
 
-	peloton := &garminizer.Peloton{}
-	err := peloton.Login()
-	if err != nil {
-		log.Printf("error logging into %s: %s", sourceFlag, err)
-	}
+	garminizer.Run(sourceFlag)
 }
