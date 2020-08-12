@@ -9,13 +9,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Peloton is the main struct use to interact with the Peloton API
-type Peloton struct {
+// peloton is the main struct use to interact with the Peloton API
+type peloton struct {
 	auth *pelotonAuthResponse
 }
 
-// Login is used to login to the Peloton API
-func (peloton *Peloton) Login() error {
+// login is used to login to the Peloton API
+func (peloton *peloton) login() error {
 	const api = "https://api.pelotoncycle.com/auth/login"
 	var pelotonAuthResponse pelotonAuthResponse
 
@@ -29,29 +29,29 @@ func (peloton *Peloton) Login() error {
 		return err
 	}
 
-	// call Peloton's login API with the right username & password
+	// call peloton's login API with the right username & password
 	pelotonLoginBody := bytes.NewReader([]byte(pelotonLoginJSON))
 	bytesResponse, err := makeAPICall(http.MethodPost, api, nil, pelotonLoginBody)
 	if err != nil {
 		return err
 	}
 
-	// process the response from Peloton's login API
+	// process the response from peloton's login API
 	err = json.Unmarshal(bytesResponse, &pelotonAuthResponse)
 	if err != nil {
 		return err
 	}
 
 	peloton.auth = &pelotonAuthResponse
-	log.Printf("Peloton's Login response:\n=====\n%v\n", peloton.auth)
+	log.Printf("peloton's Login response:\n=====\n%v\n", peloton.auth)
 
 	return nil
 }
 
-func (peloton *Peloton) downloadWorkouts(numOfWorkoutsToGet int) {
+func (peloton *peloton) downloadWorkouts(numOfWorkoutsToGet int) {
 
 }
 
-func (peloton *Peloton) downloadWorkout() {
+func (peloton *peloton) downloadWorkout() {
 
 }
